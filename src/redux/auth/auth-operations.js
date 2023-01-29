@@ -50,7 +50,7 @@ export const logout = createAsyncThunk(
   }
 );
 
-export const fecthCurrentUser = createAsyncThunk(
+export const fetchCurrentUser = createAsyncThunk(
   'auth/refresh',
   async (_, { rejectWitjValue, getState }) => {
     const tokenLS = getState().auth.token;
