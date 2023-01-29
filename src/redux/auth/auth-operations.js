@@ -54,9 +54,8 @@ export const fetchCurrentUser = createAsyncThunk(
   'auth/refresh',
   async (_, { rejectWithValue, getState }) => {
     const tokenLS = getState().auth.token;
-    //   getState return all global state
     if (!tokenLS) {
-      return rejectWithValue('Token is missing');
+      return rejectWithValue('No token');
     }
     token.set(tokenLS);
     try {
