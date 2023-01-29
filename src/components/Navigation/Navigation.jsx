@@ -13,7 +13,7 @@ export const Navigation = () => {
         </li>
         {token && (
           <li>
-            <NavLink to="users">Users</NavLink>
+            <NavLink to="contacts">Contacts</NavLink>
           </li>
         )}
       </ul>

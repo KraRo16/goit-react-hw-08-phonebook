@@ -14,56 +14,56 @@ const token = {
 
 export const register = createAsyncThunk(
   'auth/register',
-  async (userData, { rejectWitjValue }) => {
+  async (userData, { rejectWithValue }) => {
     try {
       const { data } = await axios.post('/users/signup', userData);
       token.set(data.token);
       return data;
     } catch (error) {
-      return rejectWitjValue(error);
+      return rejectWithValue(error);
     }
   }
 );
 
 export const login = createAsyncThunk(
   'auth/login',
-  async (userData, { rejectWitjValue }) => {
+  async (userData, { rejectWithValue }) => {
     try {
       const { data } = await axios.post('/users/login', userData);
       token.set(data.token);
       return data;
     } catch (error) {
-      return rejectWitjValue(error);
+      return rejectWithValue(error);
     }
   }
 );
 
 export const logout = createAsyncThunk(
   'auth/logout',
-  async (_, { rejectWitjValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       await axios.post('/users/logout');
       token.unset();
     } catch (error) {
-      return rejectWitjValue(error);
+      return rejectWithValue(error);
     }
   }
 );
 
 export const fetchCurrentUser = createAsyncThunk(
   'auth/refresh',
-  async (_, { rejectWitjValue, getState }) => {
+  async (_, { rejectWithValue, getState }) => {
     const tokenLS = getState().auth.token;
     //   getState return all global state
     if (!tokenLS) {
-      return rejectWitjValue('Token is missing');
+      return rejectWithValue('Token is missing');
     }
     token.set(tokenLS);
     try {
       const { data } = await axios('/users/current');
       return data;
     } catch (error) {
-      return rejectWitjValue(error);
+      return rejectWithValue(error);
     }
   }
 );
