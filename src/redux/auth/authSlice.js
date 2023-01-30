@@ -12,11 +12,73 @@ const initialState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  extraReducers: builder =>
+  //   extraReducers: builder =>
+  //     builder
+  //       .addCase(logout.fulfilled, state => {
+  //         state.isLoading = false;
+  //         state.error = null;
+  //         state.token = null;
+  //         state.user = { name: '', email: '' };
+  //       })
+  //       .addCase(fetchCurrentUser.pending, state => {
+  //         state.isFetchingCurrentUser = true;
+  //       })
+  //       .addCase(fetchCurrentUser.fulfilled, (state, { payload }) => {
+  //         state.isLoading = false;
+  //         state.error = null;
+  //         state.user = payload;
+  //         state.isFetchingCurrentUser = false;
+  //       })
+  //       .addCase(fetchCurrentUser.rejected, state => {
+  //         state.isFetchingCurrentUser = false;
+  //       })
+  //       .addMatcher(
+  //         isAnyOf(
+  //           register.pending,
+  //           login.pending,
+  //           logout.pending,
+  //           fetchCurrentUser.pending
+  //         ),
+  //         state => {
+  //           state.isLoading = true;
+  //         }
+  //       )
+  //       .addMatcher(
+  //         isAnyOf(register.fulfilled, login.fulfilled),
+  //         (state, { payload: { user, token } }) => {
+  //           state.isLoading = false;
+  //           state.error = null;
+  //           state.token = token;
+  //           state.user = user;
+  //         }
+  //       )
+  //       .addMatcher(
+  //         isAnyOf(
+  //           register.rejected,
+  //           login.rejected,
+  //           logout.rejected,
+  //           fetchCurrentUser.rejected
+  //         ),
+  //         (state, { payload }) => {
+  //           state.isLoading = false;
+  //           state.error = payload;
+  //         }
+  //       ),
+  // });
+
+  extraReducers: builder => {
     builder
+
+      .addCase(register.fulfilled, (state, { payload: { user, token } }) => {
+        state.token = token;
+        state.user = user;
+      })
+
+      .addCase(login.fulfilled, (state, { payload: { user, token } }) => {
+        state.token = token;
+        state.user = user;
+      })
       .addCase(logout.fulfilled, state => {
-        state.isLoading = false;
-        state.error = null;
         state.token = null;
         state.user = { name: '', email: '' };
       })
@@ -24,34 +86,12 @@ const authSlice = createSlice({
         state.isFetchingCurrentUser = true;
       })
       .addCase(fetchCurrentUser.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
-        state.error = null;
         state.user = payload;
         state.isFetchingCurrentUser = false;
       })
       .addCase(fetchCurrentUser.rejected, state => {
         state.isFetchingCurrentUser = false;
       })
-      .addMatcher(
-        isAnyOf(
-          register.pending,
-          login.pending,
-          logout.pending,
-          fetchCurrentUser.pending
-        ),
-        state => {
-          state.isLoading = true;
-        }
-      )
-      .addMatcher(
-        isAnyOf(register.fulfilled, login.fulfilled),
-        (state, { payload: { user, token } }) => {
-          state.isLoading = false;
-          state.error = null;
-          state.token = token;
-          state.user = user;
-        }
-      )
       .addMatcher(
         isAnyOf(
           register.rejected,
@@ -63,76 +103,21 @@ const authSlice = createSlice({
           state.isLoading = false;
           state.error = payload;
         }
-      ),
+      )
+      .addMatcher(
+        isAnyOf(register.fulfilled, login.fulfilled, logout.fulfilled),
+        state => {
+          state.isLoading = false;
+          state.error = null;
+        }
+      )
+      .addMatcher(
+        isAnyOf(register.pending, login.pending, logout.pending),
+        state => {
+          state.isLoading = true;
+        }
+      );
+  },
 });
-
-// const authSlice = createSlice({
-//   name: 'auth',
-//   initialState,
-//   extraReducers: builder =>
-//     builder
-//       .addCase(register.fulfilled, state => {
-//         state.isLoading = false;
-//         state.error = null;
-//         state.token = null;
-//         state.user = { name: '', email: '' };
-//       })
-
-//       .addCase(logout.fulfilled, state => {
-//         state.isLoading = false;
-//         state.error = null;
-//         state.token = null;
-//         state.user = { name: ' ', email: '' };
-//       })
-
-//       .addCase(fetchCurrentUser.pending, state => {
-//         state.isFetchingCurrentUser = true;
-//       })
-
-//       .addCase(fetchCurrentUser.fulfilled, (state, { payload }) => {
-//         state.isLoading = false;
-//         state.error = null;
-//         state.user = payload;
-//         state.isFetchingCurrentUser = false;
-//       })
-
-//       .addCase(fetchCurrentUser.rejected, state => {
-//         state.isFetchingCurrentUser = false;
-//       })
-
-//       .addMatcher(
-//         isAnyOf(
-//           register.pending,
-//           login.pending,
-//           logout.pending,
-//           fetchCurrentUser.pending
-//         ),
-//         state => {
-//           state.isLoading = true;
-//         }
-//       )
-
-//       .addMatcher(
-//         isAnyOf(register.fulfilled, login.fulfilled),
-//         (state, { payload: { user, token } }) => {
-//           state.isLoading = false;
-//           state.error = null;
-//           state.token = token;
-//           state.user = user;
-//         }
-//       )
-//       .addMatcher(
-//         isAnyOf(
-//           register.rejected,
-//           login.rejected,
-//           logout.rejected,
-//           fetchCurrentUser.rejected
-//         ),
-//         (state, { payload }) => {
-//           state.isLoading = false;
-//           state.error = payload;
-//         }
-//       ),
-// });
 
 export default authSlice.reducer;

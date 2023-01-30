@@ -6,13 +6,13 @@ import { selectFilter } from 'redux/filter/filter-selectors';
 export const Filter = () => {
   const dispatch = useDispatch(selectFilter);
   return (
-    <div>
+    <label>
       Find contacts by name
       <input
         type="text"
         placeholder="Filter"
         onChange={ev => dispatch(filter(ev.target.value.toLowerCase()))}
       />
-    </div>
+    </label>
   );
 };

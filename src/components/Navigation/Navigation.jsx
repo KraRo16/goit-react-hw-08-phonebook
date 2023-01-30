@@ -6,17 +6,19 @@ export const Navigation = () => {
   const token = useSelector(selectToken);
 
   return (
-    <nav>
-      <ul>
-        <li>
-          <NavLink to="/">Home</NavLink>
-        </li>
-        {token && (
+    <>
+      <nav>
+        <ul>
           <li>
-            <NavLink to="contacts">Contacts</NavLink>
+            <NavLink to="/">Home</NavLink>
           </li>
-        )}
-      </ul>
-    </nav>
+          {token && (
+            <li>
+              <NavLink to="contacts">Contacts</NavLink>
+            </li>
+          )}
+        </ul>
+      </nav>
+    </>
   );
 };

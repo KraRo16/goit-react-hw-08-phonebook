@@ -11,8 +11,8 @@ export const Layout = () => {
   return (
     <>
       <header>
-        <Navigation />
         {token ? <UserAuthMenu /> : <AuthNavigation />}
+        <Navigation />
       </header>
       <main>
         <Outlet />

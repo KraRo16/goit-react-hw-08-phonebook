@@ -28,7 +28,7 @@ export const App = () => {
             <Route
               index
               element={
-                <PublicRoute>
+                <PublicRoute restricted>
                   <HomePage />
                 </PublicRoute>
               }

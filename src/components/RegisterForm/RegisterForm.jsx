@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { register } from 'redux/auth/auth-operations';
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { useRef } from 'react';
 
 export const RegisterForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const location = useLocation();
+  const refLocation = useRef(location.state?.location);
   const dispatch = useDispatch();
 
   const handleChange = ({ target: { name, value } }) => {
@@ -34,30 +38,33 @@ export const RegisterForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Name:
-        <input type="text" name="name" value={name} onChange={handleChange} />
-      </label>
-      <label>
-        Email:
-        <input
-          type="email"
-          name="email"
-          value={email}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handleChange}
-        />
-      </label>
-      <button>Register</button>
-    </form>
+    <>
+      <Link to={refLocation.current ?? '/'}>BACK</Link>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Name:
+          <input type="text" name="name" value={name} onChange={handleChange} />
+        </label>
+        <label>
+          Email:
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Password:
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+          />
+        </label>
+        <button>Register</button>
+      </form>
+    </>
   );
 };
