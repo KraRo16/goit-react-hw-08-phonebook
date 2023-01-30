@@ -53,11 +53,12 @@ export const fetchCurrentUser = createAsyncThunk(
   async (_, { rejectWithValue, getState }) => {
     const tokenLS = getState().auth.token;
     if (!tokenLS) {
-      return rejectWithValue();
+      return rejectWithValue(null);
     }
     token.set(tokenLS);
     try {
       const { data } = await axios('/users/current');
+
       return data;
     } catch (error) {
       return rejectWithValue(error);
