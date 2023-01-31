@@ -13,7 +13,7 @@ const ContactForm = () => {
     e.preventDefault();
     const elem = e.target.elements;
     // const contact = { name, number, id: nanoid() };
-    dispatch(addContacts({ name: elem.name.value, phone: elem.phone.value }));
+    dispatch(addContacts({ name: elem.name.value, number: elem.phone.value }));
     elem.name.value = '';
     elem.phone.value = '';
   };
